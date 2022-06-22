@@ -1,5 +1,6 @@
 <template>
     <div>
+      <router-link to="/Backstage">Go to Backstage</router-link>
   <b-navbar toggleable="lg" type="dark" variant="dark">
     <b-navbar-brand href="#" style="padding: 2%">  <b-icon-book></b-icon-book> Caroline's Bookstore</b-navbar-brand>
 

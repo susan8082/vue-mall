@@ -1,8 +1,7 @@
 <template>
     <div>
   <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-navbar-brand href="#" style="padding: 2%">  <b-icon-book></b-icon-book> Caroline's Bookstore</b-navbar-brand>
-
+      <router-link to="/Backstage" id="backstage"> <b-navbar-brand style="padding: 5%">  <b-icon-book></b-icon-book> Caroline's Bookstore</b-navbar-brand></router-link>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
@@ -34,15 +33,25 @@
   </b-navbar>
 <div style="padding: 2%">
   <b-container class="bv-example-row bv-example-row-flex-cols">
+<b-row>
+  <b-col v-if="items.length>0">
+  <Carousel :items="items"></Carousel>
+  </b-col>
+</b-row>
+
+
   <b-row align-h="between">
     <b-col cols="2">
     <h2 v-if="isShown" style="bold">
+
       <span v-if="type==='FOOD'">GROCERY</span>
         <span v-else-if="type==='CAR'">AUTOMOBILE</span>
           <span v-else>ALL PRODUCTS</span>
+          
     </h2>
     </b-col>
     <b-col cols="2">
+     <span v-if="isShown">  {{items.length}} results </span>
     <b-form-select v-if="isShown" v-model="selected" :options="options"></b-form-select>
     </b-col>
   </b-row>
@@ -162,8 +171,10 @@
 </template>
 
 <script>
+import Carousel from './Carousel.vue'
 export default {
   name: 'HelloWorld',
+  components:{Carousel},
   data () {
     return {
       isShown: false,
@@ -189,6 +200,9 @@ export default {
       search:null
     }
 
+  },
+  created(){
+     this.getProducts(this.type)
   },
   methods:{
   getProducts(type){
@@ -217,8 +231,8 @@ export default {
   this.$http.get('/api/products', {params: obj}).then((res)=>{
   this.items = res.body.products
   this.rows = res.body.total
+  this.isShown = true
        })
-    this.isShown = true
      },
 
   
@@ -248,11 +262,12 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
-}
  .customDropdown {
     border: 3px dashed cyan;
     background-color: purple;
   }
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
 </style>
