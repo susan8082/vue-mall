@@ -1,6 +1,6 @@
 # frontend-mall
 
-> A book online store using Vue.js
+> A online shopping mall using Vue.js
 
 ## Build Setup
 
